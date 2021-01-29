@@ -1,18 +1,17 @@
 import Phaser from 'phaser'
 
 import BoardScene from "./scenes/BoardScene";
-import CardScene from "./scenes/CardScene";
 
 const config = {
     type: Phaser.AUTO,
     backgroundColor: 0xEEEEEE,
-    resolution : window.devicePixelRatio,
     scale : {
-        mode: Phaser.Scale.FIT,
+        mode : Phaser.Scale.FIT,
+        autoCenter : Phaser.Scale.CENTER_HORIZONTALLY,
         width: 2000,
         height: 1200,
     },
-    scene: [BoardScene, CardScene]
+    scene: [BoardScene]
 };
 
 let game = new Phaser.Game(config)

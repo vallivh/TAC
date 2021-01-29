@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import CardScene from "./CardScene";
 
 export default class BoardScene extends Phaser.Scene {
 
@@ -14,7 +15,12 @@ export default class BoardScene extends Phaser.Scene {
         let x = this.scale.width - this.scale.height/2;
         let y = this.scale.height/2;
 
-        let tacBoard = this.add.image(x, y, "board");
-        tacBoard.setScale(this.scale.height/tacBoard.width);
+        this.tacBoard = this.add.image(x, y, "board");
+        this.tacBoard.setScale(this.scale.height/this.tacBoard.width);
+
+        this.scene.add("cardScene", CardScene, true, {
+            boardX : x,
+            boardY : y,
+            length : this.tacBoard.width});
     }
 }
