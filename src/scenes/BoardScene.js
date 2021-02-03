@@ -1,10 +1,9 @@
 import Phaser from "phaser"
-import CardScene from "./CardScene";
 
 export default class BoardScene extends Phaser.Scene {
 
     constructor() {
-        super("board")
+        super("boardScene")
     }
 
     preload() {
@@ -12,15 +11,23 @@ export default class BoardScene extends Phaser.Scene {
     }
 
     create() {
-        let x = this.scale.width - this.scale.height/2;
-        let y = this.scale.height/2;
+        const x = this.scale.width - this.scale.height/2;
+        const y = this.scale.height/2;
 
         this.tacBoard = this.add.image(x, y, "board");
-        this.tacBoard.setScale(this.scale.height/this.tacBoard.width);
+        const length = this.tacBoard.width;
+        this.tacBoard.setScale(this.scale.height/length);
 
-        this.scene.add("cardScene", CardScene, true, {
+        this.scene.launch("cardScene", {
             boardX : x,
             boardY : y,
-            length : this.tacBoard.width});
+            boardLength : length
+        });
+
+        this.scene.launch("marbelScene", {
+            boardX : x,
+            boardY : y,
+            boardLength : length
+        });
     }
 }

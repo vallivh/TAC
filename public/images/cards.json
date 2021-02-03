@@ -1,0 +1,419 @@
+{
+	"textures": [
+		{
+			"image": "cards.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1510,
+				"h": 2032
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "teufel",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 511
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 511
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 300,
+						"h": 511
+					}
+				},
+				{
+					"filename": "vier",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 511
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 511
+					},
+					"frame": {
+						"x": 1,
+						"y": 514,
+						"w": 300,
+						"h": 511
+					}
+				},
+				{
+					"filename": "drei",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 509
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 509
+					},
+					"frame": {
+						"x": 1,
+						"y": 1027,
+						"w": 300,
+						"h": 509
+					}
+				},
+				{
+					"filename": "trickser",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 509
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 509
+					},
+					"frame": {
+						"x": 303,
+						"y": 1,
+						"w": 300,
+						"h": 509
+					}
+				},
+				{
+					"filename": "back",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 508
+					},
+					"frame": {
+						"x": 303,
+						"y": 512,
+						"w": 300,
+						"h": 508
+					}
+				},
+				{
+					"filename": "dreizehn",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 508
+					},
+					"frame": {
+						"x": 303,
+						"y": 1022,
+						"w": 300,
+						"h": 508
+					}
+				},
+				{
+					"filename": "sechs",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 496
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 496
+					},
+					"frame": {
+						"x": 303,
+						"y": 1532,
+						"w": 300,
+						"h": 496
+					}
+				},
+				{
+					"filename": "eins",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 508
+					},
+					"frame": {
+						"x": 605,
+						"y": 1,
+						"w": 300,
+						"h": 508
+					}
+				},
+				{
+					"filename": "engel",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 508
+					},
+					"frame": {
+						"x": 907,
+						"y": 1,
+						"w": 300,
+						"h": 508
+					}
+				},
+				{
+					"filename": "sieben",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 508
+					},
+					"frame": {
+						"x": 1209,
+						"y": 1,
+						"w": 300,
+						"h": 508
+					}
+				},
+				{
+					"filename": "zwei",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 508
+					},
+					"frame": {
+						"x": 605,
+						"y": 511,
+						"w": 300,
+						"h": 508
+					}
+				},
+				{
+					"filename": "fuenf",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 506
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 506
+					},
+					"frame": {
+						"x": 605,
+						"y": 1021,
+						"w": 300,
+						"h": 506
+					}
+				},
+				{
+					"filename": "krieger",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 502
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 502
+					},
+					"frame": {
+						"x": 605,
+						"y": 1529,
+						"w": 300,
+						"h": 502
+					}
+				},
+				{
+					"filename": "zwoelf",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 506
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 506
+					},
+					"frame": {
+						"x": 907,
+						"y": 511,
+						"w": 300,
+						"h": 506
+					}
+				},
+				{
+					"filename": "tac",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 505
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 505
+					},
+					"frame": {
+						"x": 1209,
+						"y": 511,
+						"w": 300,
+						"h": 505
+					}
+				},
+				{
+					"filename": "zehn",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 505
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 505
+					},
+					"frame": {
+						"x": 1209,
+						"y": 1018,
+						"w": 300,
+						"h": 505
+					}
+				},
+				{
+					"filename": "acht",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 504
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 504
+					},
+					"frame": {
+						"x": 907,
+						"y": 1019,
+						"w": 300,
+						"h": 504
+					}
+				},
+				{
+					"filename": "narr",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 504
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 504
+					},
+					"frame": {
+						"x": 907,
+						"y": 1525,
+						"w": 300,
+						"h": 504
+					}
+				},
+				{
+					"filename": "neun",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 300,
+						"h": 504
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 504
+					},
+					"frame": {
+						"x": 1209,
+						"y": 1525,
+						"w": 300,
+						"h": 504
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:bd51fd9d83dbbbb5e7ed648295c48e89:9d9548b159b9e97718a8df9e234e924a:8056528aade6b91f4a89f8c9da7f2d4c$"
+	}
+}
