@@ -100,14 +100,8 @@ export default class MarbelScene extends Phaser.Scene {
             }
         });
 
-        /*this.input.on("gameobjectout", function (pointer, gameObject) {
+        this.input.on("gameobjectout", function (pointer, gameObject) {
             gameObject.clearTint();
         });
-
-        this.input.on("dragend", function (pointer, gameObject, dropped) {
-            if (!dropped) {
-            }
-            gameObject.clearTint();
-        });*/
     }
 }

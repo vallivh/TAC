@@ -15,7 +15,6 @@ export default class CardScene extends Phaser.Scene {
 
     create(data) {
 
-        const settings = this.sys.game.settings;
         let graphics = this.add.graphics();
 
         // get center coordinates of the board (from BoardScene)
@@ -29,19 +28,17 @@ export default class CardScene extends Phaser.Scene {
         graphics.strokeCircle(boardX, boardY, cardZoneRadius);
 
         // for all card types create a single card each and put it on a "deck" (exclude "back")
-        let cardTypes = this.textures.get("cards").getFrameNames();
-        cardTypes = cardTypes.filter(frame => frame !== "back");
 
         let deckX = boardX - 750;
         let deckY = boardY - 200;
 
-        for (let cardType of cardTypes) {
-            for (let i = 0; i < settings.cardCount[cardType]; i++) {
-                this.add.card(deckX, deckY, cardType);
+        this.game.events.on("new_deck", (deck) => {
+            for (let cardName of deck) {
+                this.add.card(deckX, deckY, cardName);
                 deckX += 0.25;
                 deckY += 0.25;
             }
-        }
+        })
 
         // pointer has to move a bit to register a drag
         this.input.dragDistanceThreshold = 3;
@@ -62,6 +59,7 @@ export default class CardScene extends Phaser.Scene {
             gameObject.y = dropZone.y;
             this.flipCard (gameObject);
             gameObject.dropped = true;
+            this.game.events.emit("card_dropped", gameObject.name);
         }, this);
 
 
@@ -75,6 +73,8 @@ export default class CardScene extends Phaser.Scene {
                 this.flipCard (gameObject);
             }
         }, this)
+
+        this.game.events.on("hello", (message) => {alert(message)});
     }
 
     // reusable function to animate flipping a card
