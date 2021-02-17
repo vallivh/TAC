@@ -20,7 +20,7 @@ export default class CardScene extends Phaser.Scene {
         // get center coordinates of the board (from BoardScene)
         let boardX = data.boardX;
         let boardY = data.boardY;
-        let cardZoneRadius = data.boardLength * 0.16;
+        let cardZoneRadius = data.boardLength * 0.14;
 
         // create a dropzone in the center of the board
         this.add.zone(boardX, boardY).setCircleDropZone(cardZoneRadius);
@@ -30,9 +30,9 @@ export default class CardScene extends Phaser.Scene {
         // for all card types create a single card each and put it on a "deck" (exclude "back")
 
         let deckX = boardX - 750;
-        let deckY = boardY - 200;
+        let deckY = boardY - 500;
 
-        this.game.events.on("new_deck", (deck) => {
+        this.game.events.once("new_deck", (deck) => {
             for (let cardName of deck) {
                 this.add.card(deckX, deckY, cardName);
                 deckX += 0.25;
@@ -55,26 +55,29 @@ export default class CardScene extends Phaser.Scene {
 
         // when inside the dropzone, snap card to center of dropzone and disable
         this.input.on('drop', function (pointer, gameObject, dropZone) {
-            gameObject.x = dropZone.x;
-            gameObject.y = dropZone.y;
-            this.flipCard (gameObject);
-            gameObject.dropped = true;
-            this.game.events.emit("card_dropped", gameObject.name);
+            if (gameObject instanceof Card) {
+                gameObject.x = dropZone.x;
+                gameObject.y = dropZone.y;
+                this.flipCard (gameObject);
+                gameObject.dropped = true;
+                this.game.events.emit("card_played", gameObject.name);
+            }
         }, this);
 
 
         // flip card on double tap/click
         let lastTime = 0;
+        let clickCount = 0;
 
         this.input.on("gameobjectup", function (pointer, gameObject) {
             let clickDelay = this.time.now - lastTime;
             lastTime = this.time.now;
             if(clickDelay < 350 && !gameObject.dropped) {
+                this.children.bringToTop(gameObject);
+                this.dealCard (gameObject, clickCount % 4, Math.floor((clickCount++) / 4));
                 this.flipCard (gameObject);
             }
         }, this)
-
-        this.game.events.on("hello", (message) => {alert(message)});
     }
 
     // reusable function to animate flipping a card
@@ -83,13 +86,22 @@ export default class CardScene extends Phaser.Scene {
             targets: gameObject,
             scaleX: 0,
             scaleY : 0.52,
-            angle : gameObject.angle + 5,
-            duration : 150,
+            angle : gameObject.angle - 10,
+            duration : 200,
             yoyo : true,
             onYoyo : function () {
                 let frameName = gameObject.frame.name === "back" ? gameObject.name : "back";
                 gameObject.setFrame(frameName);
             },
         });
+    }
+
+    dealCard (gameObject, player, position) {
+        this.tweens.add({
+            targets: gameObject,
+            x: 100 + 100 * position,
+            y: 420 + 240 * player,
+            duration: 400,
+        })
     }
 }
