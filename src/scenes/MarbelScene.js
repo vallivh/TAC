@@ -38,7 +38,7 @@ export default class MarbelScene extends Phaser.Scene {
         }
 
         // create 64 fields around the ring of the board
-        let fields = [];
+        let fields = this.add.container();
         const fieldDistance = data.boardLength * 0.451;
         const fieldRadius = data.boardLength * 0.018;
 
@@ -48,7 +48,7 @@ export default class MarbelScene extends Phaser.Scene {
             let x = fieldDistance * Math.cos(radian) + boardX;
             let y = fieldDistance * Math.sin(radian) + boardY;
 
-            fields[j] = this.add.zone(x, y).setCircleDropZone(fieldRadius).setName(j).disableInteractive();
+            fields.add(this.add.zone(x, y).setCircleDropZone(fieldRadius).setName(j).disableInteractive());
             graphics.lineStyle(2, 0xffff00);
             graphics.strokeCircle(x, y, fieldRadius);
         }

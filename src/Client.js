@@ -20,8 +20,9 @@ export const config = {
 };
 
 class TacUI extends Phaser.Game {
-    constructor(config) {
+    constructor(config, playerID) {
         super(config);
+        this.playerID = playerID;
     }
 }
 
@@ -31,7 +32,7 @@ class TacClient {
             game: Tac,
             numPlayers : 4,
         });
-        this.tac = new TacUI(config);
+        this.tac = new TacUI(config, 0);
         this.client.start();
         this.attachListeners();
         this.client.subscribe(state => this.update(state));

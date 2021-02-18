@@ -73,9 +73,12 @@ export default class CardScene extends Phaser.Scene {
             let clickDelay = this.time.now - lastTime;
             lastTime = this.time.now;
             if(clickDelay < 350 && !gameObject.dropped) {
+                let player = clickCount % 4;
                 this.children.bringToTop(gameObject);
-                this.dealCard (gameObject, clickCount % 4, Math.floor((clickCount++) / 4));
-                this.flipCard (gameObject);
+                this.dealCard (gameObject, player, Math.floor((clickCount++) / 4));
+                if (player === this.sys.game.playerID) {
+                    this.flipCard (gameObject);
+                }
             }
         }, this)
     }
@@ -86,8 +89,9 @@ export default class CardScene extends Phaser.Scene {
             targets: gameObject,
             scaleX: 0,
             scaleY : 0.52,
-            angle : gameObject.angle - 10,
+            angle : "-=10",
             duration : 200,
+            ease: "Sine.easeInOut",
             yoyo : true,
             onYoyo : function () {
                 let frameName = gameObject.frame.name === "back" ? gameObject.name : "back";
@@ -99,9 +103,10 @@ export default class CardScene extends Phaser.Scene {
     dealCard (gameObject, player, position) {
         this.tweens.add({
             targets: gameObject,
-            x: 100 + 100 * position,
+            x: 200 + 80 * position,
             y: 420 + 240 * player,
-            duration: 400,
+            ease: "Expo",
+            duration: 800,
         })
     }
 }
