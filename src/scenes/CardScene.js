@@ -32,9 +32,11 @@ export default class CardScene extends Phaser.Scene {
         let deckX = boardX - 750;
         let deckY = boardY - 500;
 
+        let cards = [];
+
         this.game.events.once("new_deck", (deck) => {
             for (let cardName of deck) {
-                this.add.card(deckX, deckY, cardName);
+                cards.push( this.add.card(deckX, deckY, cardName) );
                 deckX += 0.25;
                 deckY += 0.25;
             }
@@ -100,11 +102,13 @@ export default class CardScene extends Phaser.Scene {
         });
     }
 
-    dealCard (gameObject, player, position) {
+    // reusable function to move a card to a hand
+    // based on playerID and positionID within the hand
+    dealCard (gameObject, playerID, positionID) {
         this.tweens.add({
             targets: gameObject,
-            x: 200 + 80 * position,
-            y: 420 + 240 * player,
+            x: 200 + 80 * positionID,
+            y: 420 + 240 * playerID,
             ease: "Expo",
             duration: 800,
         })
