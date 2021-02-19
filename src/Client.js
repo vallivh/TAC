@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
 import { Client } from 'boardgame.io/client';
+import { SocketIO } from "boardgame.io/multiplayer";
 import { Tac } from './Game';
 
 import BoardScene from "./scenes/BoardScene";
@@ -27,12 +28,14 @@ class TacUI extends Phaser.Game {
 }
 
 class TacClient {
-    constructor() {
+    constructor({ playerID } = {}) {
         this.client = Client({
             game: Tac,
             numPlayers : 4,
+            multiplayer: SocketIO({server: "localhost:80"}),
+            playerID,
         });
-        this.tac = new TacUI(config, 0);
+        this.tac = new TacUI(config, playerID);
         this.client.start();
         this.attachListeners();
         this.client.subscribe(state => this.update(state));
@@ -43,11 +46,15 @@ class TacClient {
     }
 
     update(state) {
+        if (state === null) return;
+
         let emit = (event, args) => this.tac.events.emit(event, args);
-        if (state.ctx.phase === "exchanging") {
+        if (state.G.deck.length === 83) {
             emit("new_deck", state.G.deck);
         }
     }
 }
 
-export const tacClient = new TacClient();
+let playerID = prompt("Which player do you want to be?", "0");
+
+export const tacClient = new TacClient({ playerID });

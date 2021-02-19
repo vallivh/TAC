@@ -5,9 +5,14 @@
 	"scripts": {
 		"start": "parcel src/index.html -p 8000",
 		"build": "parcel build src/index.html --out-dir dist",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"serve": "node -r esm src/server.js"
 	},
-	"browserslist": "> 0.4% and not ie 11",
+	"browserslist": [
+		"defaults",
+		"not IE 11",
+		"maintained node versions"
+	],
 	"author": "supertommy",
 	"license": "MIT",
 	"repository": {
@@ -26,6 +31,7 @@
 	},
 	"dependencies": {
 		"boardgame.io": "^0.43.2",
+		"esm": "^3.2.25",
 		"phaser": "^3.50.1"
 	},
 	"parcelCleanPaths": [
