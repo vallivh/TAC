@@ -19,16 +19,7 @@ export const Tac = {
             next: "playing",
 
             onBegin: (G, ctx) => {
-                if (G.deck.length === 0) {
-                    G.deck = createDeck(ctx, true);
-                }
-                for (let i = 0; i < G.drawOrder[G.currentDraw]; i++) {
-                    for (let player in G.players) {
-                        drawCard(G, ctx, player);
-                        announce(G, ctx, player);
-                    }
-                }
-                G.currentDraw = (G.currentDraw + 1) % (G.drawOrder.length);
+                dealCards(G, ctx)
             },
 
             moves: {
@@ -53,6 +44,7 @@ export const Tac = {
                     ctx.events.endTurn();
                 },
                 drawCard,
+                playCard,
                 announce,
             },
         },
@@ -94,7 +86,8 @@ function createDeck (ctx, master) {
             deck.push(cardType);
         }
     }
-    return ctx.random.Shuffle(deck);
+    deck = ctx.random.Shuffle(deck);
+    return deck;
 }
 
 function createDealer (ctx, master) {
@@ -108,6 +101,19 @@ function createDealer (ctx, master) {
             break;
     }
     return drawOrder;
+}
+
+function dealCards (G, ctx) {
+    if (G.deck.length === 0) {
+        G.deck = createDeck(ctx, true);
+    }
+    for (let i = 0; i < G.drawOrder[G.currentDraw]; i++) {
+        for (let player in G.players) {
+            drawCard(G, ctx, player);
+            announce(G, ctx, player);
+        }
+    }
+    G.currentDraw = (G.currentDraw + 1) % (G.drawOrder.length);
 }
 
 function createPlayers (ctx) {
@@ -137,24 +143,23 @@ function createMarbels (i) {
 
 function drawCard (G, ctx, player) {
     const card = G.deck.pop();
-    const dealTo = player ? player : ctx.currentPlayer;
+    const dealTo = player || ctx.currentPlayer;
     G.players[dealTo].hand.push(card);
 }
 
 function announce (G, ctx, player) {
-    const announceFor = player ? player : ctx.currentPlayer;
+    const announceFor = player || ctx.currentPlayer;
     let currentPlayer = G.players[announceFor]
     currentPlayer.can = currentPlayer.hand.some(card => card === "eins" || card === "dreizehn")
 }
 
 function playCard (G, ctx, card) {
     let hand = G.players[ctx.currentPlayer].hand;
-    if ( !(hand.includes(card)) ) {
+    if (!(hand.includes(card))) {
         return INVALID_MOVE;
     }
     let index = hand.indexOf(card);
-    if ( index >= 0 ) {
-        hand.splice( index, 1 );
+    if (index >= 0) {
+        hand.splice(index, 1);
     }
-    return card;
 }
