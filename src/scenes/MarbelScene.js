@@ -25,8 +25,8 @@ export default class MarbelScene extends Phaser.Scene {
 
         // create 4 pockets in the corners of the board
         let pockets = [];
-        let pocketDistance = data.boardLength * 0.725;
-        let pocketRadius = data.boardLength * 0.062;
+        let pocketDistance = data.boardLength * 0.595;
+        let pocketRadius = data.boardLength * 0.06;
 
         for (let i = 0; i < 4; i++) {
             let angle = 90 * i + 45;
@@ -38,9 +38,9 @@ export default class MarbelScene extends Phaser.Scene {
         }
 
         // create 64 fields around the ring of the board
-        let fields = [];
-        const fieldDistance = data.boardLength * 0.55;
-        const fieldRadius = data.boardLength * 0.02;
+        let fields = this.add.container();
+        const fieldDistance = data.boardLength * 0.451;
+        const fieldRadius = data.boardLength * 0.018;
 
         for (let j = 0; j < 64; j++) {
             let angle = 360/64 * j + 90;
@@ -48,7 +48,7 @@ export default class MarbelScene extends Phaser.Scene {
             let x = fieldDistance * Math.cos(radian) + boardX;
             let y = fieldDistance * Math.sin(radian) + boardY;
 
-            fields[j] = this.add.zone(x, y).setCircleDropZone(fieldRadius).setName(j);
+            fields.add(this.add.zone(x, y).setCircleDropZone(fieldRadius).setName(j).disableInteractive());
             graphics.lineStyle(2, 0xffff00);
             graphics.strokeCircle(x, y, fieldRadius);
         }
@@ -100,14 +100,8 @@ export default class MarbelScene extends Phaser.Scene {
             }
         });
 
-        /*this.input.on("gameobjectout", function (pointer, gameObject) {
+        this.input.on("gameobjectout", function (pointer, gameObject) {
             gameObject.clearTint();
         });
-
-        this.input.on("dragend", function (pointer, gameObject, dropped) {
-            if (!dropped) {
-            }
-            gameObject.clearTint();
-        });*/
     }
 }

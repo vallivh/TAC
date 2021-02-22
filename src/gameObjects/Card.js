@@ -9,7 +9,7 @@ export default class Card extends Phaser.GameObjects.Sprite {
         this.setTexture("cards");
         this.setFrame("back").setName(key);
         this.setPosition(x, y);
-        this.setScale(0.49);
+        this.setScale(0.45);
         this.setInteractive();
         this.scene = scene;
         scene.input.setDraggable(this);

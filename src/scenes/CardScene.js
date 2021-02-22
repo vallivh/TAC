@@ -15,13 +15,12 @@ export default class CardScene extends Phaser.Scene {
 
     create(data) {
 
-        const settings = this.sys.game.settings;
         let graphics = this.add.graphics();
 
         // get center coordinates of the board (from BoardScene)
         let boardX = data.boardX;
         let boardY = data.boardY;
-        let cardZoneRadius = data.boardLength * 0.16;
+        let cardZoneRadius = data.boardLength * 0.14;
 
         // create a dropzone in the center of the board
         this.add.zone(boardX, boardY).setCircleDropZone(cardZoneRadius);
@@ -29,19 +28,23 @@ export default class CardScene extends Phaser.Scene {
         graphics.strokeCircle(boardX, boardY, cardZoneRadius);
 
         // for all card types create a single card each and put it on a "deck" (exclude "back")
-        let cardTypes = this.textures.get("cards").getFrameNames();
-        cardTypes = cardTypes.filter(frame => frame !== "back");
 
         let deckX = boardX - 750;
-        let deckY = boardY - 200;
+        let deckY = boardY - 500;
 
-        for (let cardType of cardTypes) {
-            for (let i = 0; i < settings.cardCount[cardType]; i++) {
-                this.add.card(deckX, deckY, cardType);
+        let cards = [];
+
+        this.game.events.once("new_deck", (deck) => {
+            for (let cardName of deck) {
+                cards.push( this.add.card(deckX, deckY, cardName) );
                 deckX += 0.25;
                 deckY += 0.25;
             }
-        }
+        })
+
+        this.game.events.on("deal_card", (card, xx) => {
+            alert(`${card}, ${xx}`)
+        }, this)
 
         // pointer has to move a bit to register a drag
         this.input.dragDistanceThreshold = 3;
@@ -58,21 +61,30 @@ export default class CardScene extends Phaser.Scene {
 
         // when inside the dropzone, snap card to center of dropzone and disable
         this.input.on('drop', function (pointer, gameObject, dropZone) {
-            gameObject.x = dropZone.x;
-            gameObject.y = dropZone.y;
-            this.flipCard (gameObject);
-            gameObject.dropped = true;
+            if (gameObject instanceof Card) {
+                gameObject.x = dropZone.x;
+                gameObject.y = dropZone.y;
+                this.flipCard (gameObject);
+                gameObject.dropped = true;
+                this.game.events.emit("card_played", gameObject.name);
+            }
         }, this);
 
 
         // flip card on double tap/click
         let lastTime = 0;
+        let clickCount = 0;
 
         this.input.on("gameobjectup", function (pointer, gameObject) {
             let clickDelay = this.time.now - lastTime;
             lastTime = this.time.now;
             if(clickDelay < 350 && !gameObject.dropped) {
-                this.flipCard (gameObject);
+                let player = clickCount % 4;
+                this.children.bringToTop(gameObject);
+                this.dealCard (gameObject, player, Math.floor((clickCount++) / 4));
+                if (player === this.sys.game.playerID) {
+                    this.flipCard (gameObject);
+                }
             }
         }, this)
     }
@@ -83,13 +95,26 @@ export default class CardScene extends Phaser.Scene {
             targets: gameObject,
             scaleX: 0,
             scaleY : 0.52,
-            angle : gameObject.angle + 5,
-            duration : 150,
+            angle : "-=10",
+            duration : 200,
+            ease: "Sine.easeInOut",
             yoyo : true,
             onYoyo : function () {
                 let frameName = gameObject.frame.name === "back" ? gameObject.name : "back";
                 gameObject.setFrame(frameName);
             },
         });
+    }
+
+    // reusable function to move a card to a hand
+    // based on playerID and positionID within the hand
+    dealCard (gameObject, playerID, positionID) {
+        this.tweens.add({
+            targets: gameObject,
+            x: 200 + 80 * positionID,
+            y: 420 + 240 * playerID,
+            ease: "Expo",
+            duration: 800,
+        })
     }
 }

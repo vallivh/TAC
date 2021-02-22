@@ -13,15 +13,15 @@ export default class BoardScene extends Phaser.Scene {
     create() {
         const x = this.scale.width - this.scale.height/2;
         const y = this.scale.height/2;
+        const length = this.scale.height - 50;
 
         this.tacBoard = this.add.image(x, y, "board");
-        const length = this.tacBoard.width;
-        this.tacBoard.setScale(this.scale.height/length);
+        this.tacBoard.setSize(length, length).setDisplaySize(length, length);
 
         this.scene.launch("cardScene", {
             boardX : x,
             boardY : y,
-            boardLength : length
+            boardLength : length,
         });
 
         this.scene.launch("marbelScene", {
