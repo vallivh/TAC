@@ -42,6 +42,10 @@ export default class CardScene extends Phaser.Scene {
             }
         })
 
+        this.game.events.on("deal_card", (card, xx) => {
+            alert(`${card}, ${xx}`)
+        }, this)
+
         // pointer has to move a bit to register a drag
         this.input.dragDistanceThreshold = 3;
 

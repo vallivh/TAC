@@ -35,26 +35,28 @@ class TacClient {
             multiplayer: SocketIO({server: "localhost:80"}),
             playerID,
         });
-        this.tac = new TacUI(config, playerID);
+        this.tacUI = new TacUI(config, playerID);
         this.client.start();
         this.attachListeners();
         this.client.subscribe(state => this.update(state));
     }
 
     attachListeners() {
-        this.tac.events.on("card_played", (card) => this.client.moves.playCard(card));
+        this.tacUI.events.on("card_played", (card) => this.client.moves.playCard(card));
     }
 
     update(state) {
         if (state === null) return;
 
-        let emit = (event, args) => this.tac.events.emit(event, args);
+        let emit = (event, args) => this.tacUI.events.emit(event, args);
         if (state.G.deck.length === 83) {
             emit("new_deck", state.G.deck);
         }
+
+        emit("deal_card", state.G.players[state.ctx.currentPlayer].hand[-1], "test")
     }
 }
 
-let playerID = prompt("Which player do you want to be?", "0");
+// let playerID = prompt("Which player do you want to be?", "0");
 
-export const tacClient = new TacClient({ playerID });
+export const tacClient = new TacClient({ playerID: 0 });
